@@ -1,0 +1,15 @@
+{
+  "name": "comfy-heating-and-air-conditioning",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch scss:css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "sass": "^1.98.0"
+  }
+}

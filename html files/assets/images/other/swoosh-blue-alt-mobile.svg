@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="74" viewBox="0 0 400 74">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_882" data-name="Rectangle 882" width="400" height="74" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Blue_Swoosh" data-name="Blue Swoosh" clip-path="url(#clip-path)">
+    <g id="Group_2668" data-name="Group 2668" transform="translate(0 -4.989)">
+      <path id="Path_5951" data-name="Path 5951" d="M62.342,1.561S31.133,99.866,29.539,202.4s25.1,219.214,25.1,219.214H18.652S-1.4,338.686-2.23,202.4,62.342,1.561,62.342,1.561Z" transform="translate(402.086 15.174) rotate(90)" fill="#dedfe0"/>
+      <path id="Path_5952" data-name="Path 5952" d="M64.181,0S33.1,90.315,30.824,191.5,55.076,404.761,55.076,404.761H19.359S-.213,301.6.414,191.5,64.181,0,64.181,0Z" transform="translate(404.865 14.852) rotate(90)" fill="#174798"/>
+      <path id="Path_5953" data-name="Path 5953" d="M65.76-10.916S8.246,72,3.957,168.065,26.564,401.288,26.564,401.288H20.2S-5.4,264.756-.246,168.065,65.76-10.916,65.76-10.916Z" transform="translate(401.444 19.619) rotate(90)" fill="#1795da"/>
+      <path id="Path_5954" data-name="Path 5954" d="M482.315,10.754c92.365,11.527,155.848,66.768,155.848,66.768V1.447L219.381.531V26.139S389.95-.773,482.315,10.754Z" transform="translate(-229.471 4.916)" fill="#fff"/>
+    </g>
+  </g>
+</svg>
