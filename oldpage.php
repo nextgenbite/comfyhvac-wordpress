@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The template for displaying all pages
  *
@@ -16,18 +15,9 @@
 get_header();
 ?>
 
+	<main id="primary" class="site-main">
 
-<div class="ims-push-content">
-
-	<main id="main-container">
-
-		<div id="content">
-			<section id="content-wrap">
-
-				<div class="width-limiter">
-					<div class="content-left">
-
-							<?php
+		<?php
 		while ( have_posts() ) :
 			the_post();
 
@@ -40,18 +30,9 @@ get_header();
 
 		endwhile; // End of the loop.
 		?>
-					
 
-					</div>
+	</main><!-- #main -->
 
-					<?php get_sidebar(); ?>
-
-				</div>
-			</section>
-
-		</div><!-- #content -->
-	</main>
-</div>
-	<?php
-	
-	get_footer();
+<?php
+get_sidebar();
+get_footer();

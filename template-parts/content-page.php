@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template part for displaying page content in page.php
  *
@@ -9,14 +10,35 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
+<div id="top-content" class="">
+	<div class="content-spacer">
+		<?php
+		$title = get_field('page_title');
+		$breadcrumbs = get_field('breadcrumbs');
+		$business_phone_number = get_field('business_phone_number', 'option');
 
-	<?php comfyhvac_post_thumbnail(); ?>
+		$short_description = get_field('short_description');
+		?>
+		<?php $breadcrumbs ? site_breadcrumbs() : null; ?>
+		<?php if ($title) : ?>
+			<h1 id="content-title" class="h2"><?php echo esc_html($title); ?></h1>
+		<?php else : ?>
+			<h1 id="content-title" class="h2"><?php the_title(); ?></h1>
+		<?php endif; ?>
+		<?php if ($business_phone_number) : ?>
+			<span id="content-phone-callout" class="h3">Give us a call today: <a href="tel:<?php echo esc_attr($business_phone_number); ?>"><?php echo esc_html($business_phone_number); ?></a></span>
+		<?php else : ?>
+			<span id="content-phone-callout" class="h3">Give us a call today: <a href="tel:877-772-6639">877-772-6639</a></span>
+		<?php endif; ?>
 
-	<div class="entry-content">
+		<?php if ($short_description) : ?>
+			<?php echo $short_description ?>
+		<?php endif; ?>
+
+	</div>
+</div>
+
+<div id="main-content" class="">
 		<?php
 		the_content();
 
@@ -27,28 +49,4 @@
 			)
 		);
 		?>
-	</div><!-- .entry-content -->
-
-	<?php if ( get_edit_post_link() ) : ?>
-		<footer class="entry-footer">
-			<?php
-			edit_post_link(
-				sprintf(
-					wp_kses(
-						/* translators: %s: Name of current post. Only visible to screen readers */
-						__( 'Edit <span class="screen-reader-text">%s</span>', 'comfyhvac' ),
-						array(
-							'span' => array(
-								'class' => array(),
-							),
-						)
-					),
-					wp_kses_post( get_the_title() )
-				),
-				'<span class="edit-link">',
-				'</span>'
-			);
-			?>
-		</footer><!-- .entry-footer -->
-	<?php endif; ?>
-</article><!-- #post-<?php the_ID(); ?> -->
+</div>

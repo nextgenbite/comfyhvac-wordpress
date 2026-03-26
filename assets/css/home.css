@@ -99,10 +99,10 @@
     }
 }
 .webp #home-top-content {
-    background-image: url('/assets/images/backgrounds/bg-top-content-mobile.webp');
+    background-image: url(../images/backgrounds/bg-top-content-mobile.webp);
 }
 .no-webp #home-top-content {
-    background-image: url('/assets/images/backgrounds/bg-top-content-mobile.jpg');
+    background-image: url(../images/backgrounds/bg-top-content-mobile.jpg);
 }
 #home-top-content {
     background-size: cover;
@@ -119,7 +119,7 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    background-image: url('/assets/images/other/swoosh-blue-mobile.svg');
+    background-image: url('../images/other/swoosh-blue-mobile.svg');
     background-size: cover;
     background-position: center;
 }
@@ -182,15 +182,15 @@
         width: 100%;
         top: -1px;
         height: 100px;
-        background-image: url('/assets/images/other/swoosh-blue.svg');
+        background-image: url('../images/other/swoosh-blue.svg');
     }
 }
 @media all and (min-width: 801px) {
-    .webp #home-top-content {
-        background-image: url('/assets/images/backgrounds/bg-top-content.webp');
+     #home-top-content {
+        background-image: url(../images/backgrounds/bg-top-content.webp);
     }
     .no-webp #home-top-content {
-        background-image: url('/assets/images/backgrounds/bg-top-content.jpg');
+        background-image: url(../images/backgrounds/bg-top-content.jpg);
     }
     #home-top-content {
         padding-top: 304px;
@@ -379,10 +379,10 @@
     }
 }
 .webp #home-main-content {
-    background-image: url('/assets/images/backgrounds/bg-main-content-mobile.webp');
+    background-image: url('../images/backgrounds/bg-main-content-mobile.webp');
 }
 .no-webp #home-main-content {
-    background-image: url('/assets/images/backgrounds/bg-main-content-mobile.jpg');
+    background-image: url('../images/backgrounds/bg-main-content-mobile.jpg');
 }
 #home-main-content {
     padding: 20px 0 40px 0;
@@ -463,27 +463,27 @@ html.no-js .acc-inner-content {
 }
 .acc-trigger#acc-1:before,
 .tab-item:nth-of-type(1) button::before {
-    background-image: url('/assets/images/mc/mc-heating.svg');
+    background-image: url('../images/mc/mc-heating.svg');
 }
 .acc-trigger#acc-2:before,
 .tab-item:nth-of-type(2) button::before {
-    background-image: url('/assets/images/mc/mc-ac.svg');
+    background-image: url('../images/mc/mc-ac.svg');
 }
 .acc-trigger#acc-3:before,
 .tab-item:nth-of-type(3) button::before {
-    background-image: url('/assets/images/mc/mc-water-heaters.svg');
+    background-image: url('../images/mc/mc-water-heaters.svg');
 }
 .acc-trigger#acc-4:before,
 .tab-item:nth-of-type(4) button::before {
-    background-image: url('/assets/images/mc/mc-iaq.svg');
+    background-image: url('../images/mc/mc-iaq.svg');
 }
 .acc-trigger#acc-5:before,
 .tab-item:nth-of-type(5) button::before {
-    background-image: url('/assets/images/mc/mc-generators.svg');
+    background-image: url('../images/mc/mc-generators.svg');
 }
 .acc-trigger#acc-6:before,
 .tab-item:nth-of-type(6) button::before {
-    background-image: url('/assets/images/mc/mc-maintenance.svg');
+    background-image: url('../images/mc/mc-maintenance.svg');
 }
 .acc-trigger:after {
     position: absolute;
@@ -493,7 +493,7 @@ html.no-js .acc-inner-content {
     right: 20px;
     top: 50%;
     transform: translateY(-50%) rotate(0);
-    background-image: url('/assets/images/icons/icon-arrow-down.svg');
+    background-image: url('../images/icons/icon-arrow-down.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -657,11 +657,11 @@ button.tab-link:hover::after {
         margin: 0 auto;
         width: calc(100% - 40px);
     }
-    .webp #home-main-content {
-        background-image: url('/assets/images/backgrounds/bg-main-content.webp');
+    #home-main-content {
+        background-image: url('../images/backgrounds/bg-main-content.webp');
     }
     .no-webp #home-main-content {
-        background-image: url('/assets/images/backgrounds/bg-main-content.jpg');
+        background-image: url('../images/backgrounds/bg-main-content.jpg');
     }
     #home-main-content {
         padding: 90px 0;
@@ -759,7 +759,7 @@ ul.ma-points {
 }
 .ma-points li:before {
     content: "";
-    background-image: url('/assets/images/icons/icon-shield.svg');
+    background-image: url('../images/icons/icon-shield.svg');
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
@@ -847,7 +847,7 @@ ul.ma-points {
     }
 }
 #service-area-list::before {
-    background-image: url('/assets/images/other/swoosh-blue-alt-mobile.svg');
+    background-image: url('../images/other/swoosh-blue-alt-mobile.svg');
 }
 @media all and (min-width: 801px) {
     #service-area-list {
