@@ -10,42 +10,71 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+	<link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/assets/css/style.min.css" type="text/css" media="all" />
 
-		<?php if ( have_posts() ) : ?>
-
-			<header class="page-header">
-				<?php
+<main id="wp-blog" class="home blog">
+	<div id="top-content-wrap">
+		<div class="width-limiter">
+			<?php
 				the_archive_title( '<h1 class="page-title">', '</h1>' );
 				the_archive_description( '<div class="archive-description">', '</div>' );
 				?>
-			</header><!-- .page-header -->
+		</div>
+	</div>
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
+	<div id="content-wrap">
+		<div id="content" class="width-limiter">
+			<div id="main-content" class="content-left" role="main">
+				<div class="content-spacer">
+					<?php
 
-				/*
-				 * Include the Post-Type-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_type() );
+					if (have_posts()) :
+						while (have_posts()) : the_post() ?>
 
-			endwhile;
+							<div <?php post_class(); ?> id="post-<?php the_ID(); ?>">
+								<h2><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
+								<small><?php echo get_the_date(); ?></small>
 
-			the_posts_navigation();
+								<div class="entry">
+									<?php the_excerpt(); ?>
 
-		else :
+									<div class="social-buttons-blog">
+										<p class="social-twitter-link">
+											<a href="http://twitter.com/home?status=<?php echo urlencode(get_the_title()); ?>:%20<?php the_permalink(); ?>" target="_blank">Twitter Link</a>
+										</p>
+									</div>
 
-			get_template_part( 'template-parts/content', 'none' );
+									<p class="view-all">
+										<a href="<?php the_permalink(); ?>" rel="bookmark">Continue Reading</a>
+									</p>
+								</div>
+							</div>
 
-		endif;
-		?>
+						<?php endwhile; ?>
 
-	</main><!-- #main -->
+						<div class="navigation">
+							<div class="prev-post">
+								<?php next_posts_link('Older Entries'); ?>
+							</div>
+							<div class="next-post">
+								<?php previous_posts_link('Newer Entries'); ?>
+							</div>
+
+						<?php wp_reset_postdata();
+					else :
+						echo '<p>No posts found.</p>';
+					endif; ?>
+						</div>
+				</div>
+			</div>
+			<?php get_sidebar('blog'); ?>
+
+			<div class="clear"></div>
+		</div>
+	</div>
+</main><!-- #main -->
+
 
 <?php
-get_sidebar();
+get_sidebar('blog');
 get_footer();

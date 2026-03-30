@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template Name: Blog Page
  * @package comfyhvac
@@ -28,9 +29,9 @@ get_header();
                     );
                     $blog_query = new WP_Query($args);
 
-                    if ($blog_query->have_posts()) : 
+                    if ($blog_query->have_posts()) :
                         while ($blog_query->have_posts()) : $blog_query->the_post(); ?>
-                            
+
                             <div <?php post_class(); ?> id="post-<?php the_ID(); ?>">
                                 <h2><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
                                 <small><?php echo get_the_date(); ?></small>
@@ -61,8 +62,8 @@ get_header();
                             </div>
                         </div>
 
-                        <?php wp_reset_postdata(); 
-                    else : 
+                    <?php wp_reset_postdata();
+                    else :
                         echo '<p>No posts found.</p>';
                     endif; ?>
                 </div>
@@ -71,6 +72,8 @@ get_header();
             <?php get_sidebar('blog'); ?>
 
             <div class="clear"></div>
-        </div></div></main>
+        </div>
+    </div>
+</main>
 
 <?php get_footer(); ?>

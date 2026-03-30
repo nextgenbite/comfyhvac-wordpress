@@ -302,12 +302,6 @@ function site_breadcrumbs() {
 }
 
 
-function blog_sidebar() {
-	if (is_single()) {
-		get_sidebar('blog');
-	} else {
-		get_sidebar();
-	}
-}
+
 
 

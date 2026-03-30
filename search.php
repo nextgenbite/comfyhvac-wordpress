@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying search results pages
  *
@@ -9,45 +10,71 @@
 
 get_header();
 ?>
+<link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/assets/css/style.min.css" type="text/css" media="all" />
 
-	<main id="primary" class="site-main">
+<main id="wp-blog" class="home blog">
+	<div id="top-content-wrap">
+		<div class="width-limiter">
+			<h1 class="page-title">
+				<?php
+				/* translators: %s: search query. */
+				printf(esc_html__('Search Results for: %s', 'comfyhvac'), '<span>' . get_search_query() . '</span>');
+				?>
+			</h1>
+		</div>
+	</div>
 
-		<?php if ( have_posts() ) : ?>
-
-			<header class="page-header">
-				<h1 class="page-title">
+	<div id="content-wrap">
+		<div id="content" class="width-limiter">
+			<div id="main-content" class="content-left" role="main">
+				<div class="content-spacer">
 					<?php
-					/* translators: %s: search query. */
-					printf( esc_html__( 'Search Results for: %s', 'comfyhvac' ), '<span>' . get_search_query() . '</span>' );
-					?>
-				</h1>
-			</header><!-- .page-header -->
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
+					if (have_posts()) :
+						while (have_posts()) : the_post() ?>
 
-				/**
-				 * Run the loop for the search to output the results.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-search.php and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', 'search' );
+							<div <?php post_class(); ?> id="post-<?php the_ID(); ?>">
+								<h2><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
+								<small><?php echo get_the_date(); ?></small>
 
-			endwhile;
+								<div class="entry">
+									<?php the_excerpt(); ?>
 
-			the_posts_navigation();
+									<div class="social-buttons-blog">
+										<p class="social-twitter-link">
+											<a href="http://twitter.com/home?status=<?php echo urlencode(get_the_title()); ?>:%20<?php the_permalink(); ?>" target="_blank">Twitter Link</a>
+										</p>
+									</div>
 
-		else :
+									<p class="view-all">
+										<a href="<?php the_permalink(); ?>" rel="bookmark">Continue Reading</a>
+									</p>
+								</div>
+							</div>
 
-			get_template_part( 'template-parts/content', 'none' );
+						<?php endwhile; ?>
 
-		endif;
-		?>
+						<div class="navigation">
+							<div class="prev-post">
+								<?php next_posts_link('Older Entries'); ?>
+							</div>
+							<div class="next-post">
+								<?php previous_posts_link('Newer Entries'); ?>
+							</div>
 
-	</main><!-- #main -->
+						<?php wp_reset_postdata();
+					else :
+						echo '<p>No posts found.</p>';
+					endif; ?>
+						</div>
+				</div>
+			</div>
+			<?php get_sidebar('blog'); ?>
+
+			<div class="clear"></div>
+		</div>
+	</div>
+</main><!-- #main -->
 
 <?php
-get_sidebar();
 get_footer();
