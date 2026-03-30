@@ -31,8 +31,6 @@ get_header();
 </style>
 
 
-<div class="ims-push-content">
-
     <div id="container-banner">
         <section id="hero-outer">
             <div class="width-limiter">

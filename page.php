@@ -17,7 +17,6 @@ get_header();
 ?>
 
 
-<div class="ims-push-content">
 
 	<main id="main-container">
 
@@ -51,7 +50,6 @@ get_header();
 
 		</div><!-- #content -->
 	</main>
-</div>
 	<?php
 	
 	get_footer();

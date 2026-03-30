@@ -131,6 +131,18 @@ function comfyhvac_widgets_init() {
 			'after_title'   => '</h2>',
 		)
 	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Blog Sidebar', 'comfyhvac' ),
+			'id'            => 'blog-sidebar',
+			'description'   => esc_html__( 'Add widgets for blog posts and pages here.', 'comfyhvac' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
 }
 add_action( 'widgets_init', 'comfyhvac_widgets_init' );
 
@@ -287,6 +299,15 @@ function site_breadcrumbs() {
 
     echo '</span>';
     echo '</div>';
+}
+
+
+function blog_sidebar() {
+	if (is_single()) {
+		get_sidebar('blog');
+	} else {
+		get_sidebar();
+	}
 }
 
 
