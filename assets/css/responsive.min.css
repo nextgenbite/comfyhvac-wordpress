@@ -2,7 +2,7 @@
 
 
    /* Allow CSS-only hover to open dropdowns on desktop/non-touch devices */
-    #primary-navigation ul li.nav-level-1:hover > ul {
+    /* #primary-navigation ul li.nav-level-1:hover > ul {
         display: block;
     }
     #primary-navigation .nav-level-1.active > ul {
@@ -14,7 +14,7 @@
     #primary-navigation .nav-level-1.right-position > ul {
         left: auto;
         right: 0;
-    }
+    } */
 
         .secondary-tools-outer,.secondary-tools-outer:first-child,.secondary-tools-outer:last-child {
         box-shadow: 10px 10px 0 #174798;

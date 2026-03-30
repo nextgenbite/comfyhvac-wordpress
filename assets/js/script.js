@@ -1,7 +1,30 @@
-$(document).ready(function() {
-    
+$(document).ready(function () {
+    // --- Sticky Header ---
+    var nav = $('header');
+    var navTop = nav.offset().top;
+
+    $(window).on('scroll', function () {
+        if ($(window).scrollTop() >= navTop) {
+            $('body').addClass('ims-is-scrolled');
+        } else {
+            $('body').removeClass('ims-is-scrolled');
+        }
+    });
+
+$(document).on('mouseenter', '.nav-level-1', function () {
+    $(this).addClass('active');
+
+    // Check if this is the last visible sibling
+    if ($(this).is(':last-child')) {
+        $(this).addClass('right-position');
+    }
+});
+
+$(document).on('mouseleave', '.nav-level-1', function () {
+    $(this).removeClass('active right-position');
+});
     // --- 1. Desktop Tab Click ---
-    $('.tab-link').on('click', function() {
+    $('.tab-link').on('click', function () {
         var target = $(this).attr('data-target');
 
         // Update Buttons
@@ -14,7 +37,7 @@ $(document).ready(function() {
     });
 
     // --- 2. Mobile Accordion Click ---
-    $('.acc-title-outer').on('click', function() {
+    $('.acc-title-outer').on('click', function () {
         var $parent = $(this).closest('.acc-content');
         var $inner = $(this).next('.acc-inner-content');
 
@@ -27,24 +50,24 @@ $(document).ready(function() {
             if ($(window).width() < 768) {
                 $('.acc-inner-content').slideUp();
                 $('.acc-content').removeClass('active');
-                
+
                 $inner.slideDown();
                 $parent.addClass('active');
             }
         }
-        
+
         // Synchronize the desktop tab button highlight
         var id = '#' + $parent.attr('id');
         $('.tab-link').removeClass('active-d');
         $('.tab-link[data-target="' + id + '"]').addClass('active');
     });
 
-    $('#toggle-navigation').on('click', function() {
+    $('#toggle-navigation').on('click', function () {
         $(this).toggleClass('active');
         $('body').toggleClass('active-navigation');
     });
 
-    $(document).on('click', '.expand-nav', function() {
+    $(document).on('click', '.expand-nav', function () {
         $(this).toggleClass('active');
         $(this).siblings('ul').fadeIn().toggleClass('active');
     });

@@ -228,25 +228,33 @@ class Comfy_Nav_Walker extends Walker_Nav_Menu {
         $output .= '</ul>';
     }
 
-    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
 
-        $classes = empty($item->classes) ? array() : (array) $item->classes;
+    $classes = empty($item->classes) ? array() : (array) $item->classes;
 
-        $level = $depth + 1;
+    $level = $depth + 1;
 
-        // Detect children
-        $has_children = in_array('menu-item-has-children', $classes);
+    // Detect children
+    $has_children = in_array('menu-item-has-children', $classes);
+    $contains = $has_children ? 'contains-1' : 'contains-0';
 
-        $contains = $has_children ? 'contains-1' : 'contains-0';
+    // ✅ Add "current" class logic
+    $is_current = in_array('current-menu-item', $classes) 
+        || in_array('current-menu-parent', $classes) 
+        || in_array('current-menu-ancestor', $classes);
 
-        $output .= '<li class="nav-level-' . $level . ' ' . esc_attr($contains) . '">';
+    $current_class = $is_current ? 'current' : '';
 
-        $output .= '<a href="' . esc_url($item->url) . '"><span>' . esc_html($item->title) . '</span></a>';
+    $output .= '<li class="nav-level-' . $level . ' ' . esc_attr($contains . ' ' . $current_class) . '">';
 
-        if ($has_children) {
-            $output .= '<div class="expand-nav"><span class="nav-expand"></span></div>';
-        }
+    $output .= '<a href="' . esc_url($item->url) . '" class="' . esc_attr($current_class) . '">
+                    <span>' . esc_html($item->title) . '</span>
+                </a>';
+
+    if ($has_children) {
+        $output .= '<div class="expand-nav"><span class="nav-expand"></span></div>';
     }
+}
 
     function end_el(&$output, $item, $depth = 0, $args = null) {
         $output .= '</li>';

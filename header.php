@@ -9,7 +9,7 @@
  */
 ?>
 <!doctype html>
-<html <?php language_attributes(); ?> class="js">
+<html <?php language_attributes(); ?> class="js no-touchevents">
 
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
