@@ -16,12 +16,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?php wp_title(); ?></title>
 
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NF3TDRW');</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MBQK8Z9');</script>
   <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?> id="index" class="has-top-content has-main-content index ultimate-parent-1">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NF3TDRW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MBQK8Z9"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
-
+<!-- start chat plugin -->
+<script async src="https://online-booking.housecallpro.com/script.js?token=b5209c6dabc141c1998e8a55bb624c81&orgName=Comfy-Heating--Air-Conditioning-Inc"> </script>
+<script id="housecall-pro-chat-bubble" src="https://chat.housecallpro.com/proChat.js" type="text/javascript" data-color="#be290e" data-organization="f464ba25-9d4b-4c56-aba8-a989a401e0e3" defer></script>
+<!-- end chat plugin -->
   <div id="container-all">
     <link itemprop="image" href="/assets/images/share-image.jpg">
     <header id="header">

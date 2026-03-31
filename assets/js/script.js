@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // --- Sticky Header ---
-    var nav = $('header');
+    var nav = $('#container-primary-navigation');
     var navTop = nav.offset().top;
 
     $(window).on('scroll', function () {
@@ -70,5 +70,17 @@ $(document).on('mouseleave', '.nav-level-1', function () {
     $(document).on('click', '.expand-nav', function () {
         $(this).toggleClass('active');
         $(this).siblings('ul').fadeIn().toggleClass('active');
+    });
+
+    //promotion modal
+    $(document).on('click', '.modal-trigger', function (e) {
+        e.preventDefault();
+        var modalId = $(this).data('modal-id');
+        $('#' + modalId).show();
+    });
+
+    // Close popup
+    $(document).on('click', '.close-popup', function () {
+        $(this).closest('#promotion-popup').hide();
     });
 });

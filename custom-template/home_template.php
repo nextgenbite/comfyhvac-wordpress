@@ -70,7 +70,7 @@ get_header();
                                         <div class="popup-header-left">
                                             <div class="promotion expanded">
                                                 <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/logo.png" alt="Comfy Heating &amp; Air Conditioning Inc. Coupon" class="promotion-logo" />
-                                                <h2><a href="/promotions/59/free-estimates">Free Estimates</a></h2>
+                                                <h2><a href="/promotions/free-estimates">Free Estimates</a></h2>
 
                                                 <p>Free Estimates on New Installations</p>
                                                 <p class="disclaimer">Limit one coupon per customer. Offers cannot be combined with any other discounts, promotions, or coupons. Coupon must be presented at time of purchase and is valid for a single use only. No cash value. Other restrictions may apply.</p>
