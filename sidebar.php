@@ -30,7 +30,7 @@ if (! is_active_sidebar('sidebar-1')) {
 							<a href="" class="modal-trigger" data-append-id="miniform-content" data-modal-id="site-modal">Contact Us</a>
 						</div>
 						<span class="call-text">Or Call</span>
-						<span class="cta-phone"><img alt="" src="<?php echo get_template_directory_uri(); ?>/assets/images/icons/icon-phone.svg" width="45" height="56"><a href="tel:877-772-6639">877-772-6639</a></span>
+						<span class="cta-phone"><img alt="" src="<?php echo get_template_directory_uri(); ?>/assets/images/icons/icon-phone.svg" width="45" height="56"><a href="tel:<?php echo get_field('phone_number', 'option'); ?>"><?php echo get_field('phone_number', 'option'); ?></a></span>
 					</div>
 				</div>
 				<div id="miniform-content" style="display:none;">
@@ -152,7 +152,18 @@ if (! is_active_sidebar('sidebar-1')) {
 													</div>
 													<h4>Call to Redeem</h4>
 													<div class="phone-button cta-button">
-														<a href="tel:877-772-6639">877-772-6639</a>
+														<?php $business_phone= get_field('phone_number', 'option');
+														if ($business_phone):
+															$clean_phone = preg_replace('/\D+/', '', $business_phone);
+															$tel_link = 'tel:' . $clean_phone;
+														else:
+															$tel_link = 'tel:8777726639';
+															$business_phone = '877-772-6639';
+														?>
+														<a href="tel:<?php echo str_replace(array('(', ')', ' ', '-'), '', $business_phone); ?>">
+															<?php echo $business_phone ? $business_phone : '877-772-6639'; ?>
+														</a>
+														<?php endif; ?>
 													</div>
 												</div>
 												<div class="popup-header-right">

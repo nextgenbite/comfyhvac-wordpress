@@ -214,7 +214,7 @@ get_header();
                         <a href="" class="modal-trigger" data-append-id="miniform-content" data-modal-id="site-modal">Contact Us</a>
                     </div>
                     <span class="call-text">Or Call</span>
-                    <span class="cta-phone"><img alt="" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/icons/icon-phone.svg" width="45" height="56"><a href="tel:877-772-6639">877-772-6639</a></span>
+                    <span class="cta-phone"><img alt="" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/icons/icon-phone.svg" width="45" height="56"><a href="tel:<?php echo get_field('phone_number', 'option') ? preg_replace('/\D+/', '', get_field('phone_number', 'option')) : '8777726639'; ?>"><?php echo get_field('phone_number', 'option') ? get_field('phone_number', 'option') : '877-772-6639'; ?></a></span>
                 </div>
             </div>
             <div id="miniform-content" style="display:none;">

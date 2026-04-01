@@ -15,7 +15,7 @@
 		<?php
 		$title = get_field('page_title');
 		$breadcrumbs = get_field('breadcrumbs');
-		$business_phone_number = get_field('business_phone_number');
+		$business_phone_number = get_field('phone_number', 'option');
 
 		$short_description = get_field('short_description');
 		?>

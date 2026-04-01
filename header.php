@@ -14,32 +14,55 @@
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?php wp_title(); ?></title>
+  <title><?php wp_title('|', true, 'right');
+          bloginfo('name'); ?></title>
 
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-NF3TDRW');</script>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-MBQK8Z9');</script>
+  <script>
+    (function(w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NF3TDRW');
+  </script>
+  <script>
+    (function(w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MBQK8Z9');
+  </script>
   <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?> id="index" class="has-top-content has-main-content index ultimate-parent-1">
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NF3TDRW"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MBQK8Z9"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NF3TDRW"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MBQK8Z9"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-<!-- start chat plugin -->
-<script async src="https://online-booking.housecallpro.com/script.js?token=b5209c6dabc141c1998e8a55bb624c81&orgName=Comfy-Heating--Air-Conditioning-Inc"> </script>
-<script id="housecall-pro-chat-bubble" src="https://chat.housecallpro.com/proChat.js" type="text/javascript" data-color="#be290e" data-organization="f464ba25-9d4b-4c56-aba8-a989a401e0e3" defer></script>
-<!-- end chat plugin -->
+  <!-- start chat plugin -->
+  <script async src="https://online-booking.housecallpro.com/script.js?token=b5209c6dabc141c1998e8a55bb624c81&orgName=Comfy-Heating--Air-Conditioning-Inc"> </script>
+  <script id="housecall-pro-chat-bubble" src="https://chat.housecallpro.com/proChat.js" type="text/javascript" data-color="#be290e" data-organization="f464ba25-9d4b-4c56-aba8-a989a401e0e3" defer></script>
+  <!-- end chat plugin -->
   <div id="container-all">
     <link itemprop="image" href="/assets/images/share-image.jpg">
     <header id="header">
@@ -131,7 +154,7 @@
                   </div>
                   <div class="mobile-col mobile-phone">
                     <p class="phone-number" itemprop="telephone">
-                      <a href="tel:877-772-6639">
+                      <a href="tel:<?php echo get_field('phone_number' , 'option') ? preg_replace('/\D+/', '', get_field('phone_number' , 'option')) : '8777726639'; ?>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="23.732" height="30" viewBox="0 0 23.732 30">
                           <g id="calling" transform="translate(0 0.001)">
                             <g id="Group_2646" data-name="Group 2646" transform="translate(10.901 3.61)">
@@ -149,8 +172,7 @@
                             <path id="Path_5551" data-name="Path 5551" d="M54.13,450.954c.4.311.807.615,1.243.922h0a6.635,6.635,0,0,0,2.2-1.532,3.3,3.3,0,0,0,.926-1.564h0a.042.042,0,0,1,0-.008l-.086.091a6.941,6.941,0,0,1-3.9,2.036Q54.326,450.932,54.13,450.954Z" transform="translate(-34.811 -422.475)" fill="#dedfe0" />
                           </g>
                         </svg>
-
-                        877-772-6639
+                        <?php echo get_field('phone_number' , 'option') ? get_field('phone_number' , 'option') : '877-772-6639'; ?>
                       </a>
                     </p>
                   </div>
@@ -189,10 +211,10 @@
         </div>
       </div> <!-- #container-masthead -->
     </header>
-<div class="toggle-controller-state" id="toggle-navigation">
+    <div class="toggle-controller-state" id="toggle-navigation">
       <a href="javascript:void(0);">
-      Menu
-    </a>
+        Menu
+      </a>
     </div>
     <div id="container-primary-navigation">
       <nav id="primary-navigation" class="width-limiter hoverintent minidropdown">
@@ -220,7 +242,7 @@
         ?>
 
         <div class="phone-button cta-button">
-          <a href="tel:877-772-6639">877-772-6639</a>
+          <a href="tel:<?php echo preg_replace('/[^0-9]/', '', get_field('phone_number', 'option')); ?>"><?php echo get_field('phone_number', 'option'); ?></a>
         </div>
 
         <div class="request-estimate-button cta-button">
@@ -233,5 +255,5 @@
 
     </div> <!-- #container-primary-navigation -->
 
-    
-<div class="ims-push-content">
+
+    <div class="ims-push-content">
