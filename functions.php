@@ -1,4 +1,5 @@
 <?php
+
 /**
  * comfyhvac functions and definitions
  *
@@ -7,9 +8,9 @@
  * @package comfyhvac
  */
 
-if ( ! defined( '_S_VERSION' ) ) {
+if (! defined('_S_VERSION')) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.0' );
+	define('_S_VERSION', '1.0.0');
 }
 
 /**
@@ -19,17 +20,18 @@ if ( ! defined( '_S_VERSION' ) ) {
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
-function comfyhvac_setup() {
+function comfyhvac_setup()
+{
 	/*
 		* Make theme available for translation.
 		* Translations can be filed in the /languages/ directory.
 		* If you're building a theme based on comfyhvac, use a find and replace
 		* to change 'comfyhvac' to the name of your theme in all the template files.
 		*/
-	load_theme_textdomain( 'comfyhvac', get_template_directory() . '/languages' );
+	load_theme_textdomain('comfyhvac', get_template_directory() . '/languages');
 
 	// Add default posts and comments RSS feed links to head.
-	add_theme_support( 'automatic-feed-links' );
+	add_theme_support('automatic-feed-links');
 
 	/*
 		* Let WordPress manage the document title.
@@ -37,19 +39,19 @@ function comfyhvac_setup() {
 		* hard-coded <title> tag in the document head, and expect WordPress to
 		* provide it for us.
 		*/
-	add_theme_support( 'title-tag' );
+	add_theme_support('title-tag');
 
 	/*
 		* Enable support for Post Thumbnails on posts and pages.
 		*
 		* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		*/
-	add_theme_support( 'post-thumbnails' );
+	add_theme_support('post-thumbnails');
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'menu-1' => esc_html__( 'Primary', 'comfyhvac' ),
+			'menu-1' => esc_html__('Primary', 'comfyhvac'),
 		)
 	);
 
@@ -83,7 +85,7 @@ function comfyhvac_setup() {
 	// );
 
 	// Add theme support for selective refresh for widgets.
-	add_theme_support( 'customize-selective-refresh-widgets' );
+	add_theme_support('customize-selective-refresh-widgets');
 
 	/**
 	 * Add support for core custom logo.
@@ -100,7 +102,7 @@ function comfyhvac_setup() {
 	// 	)
 	// );
 }
-add_action( 'after_setup_theme', 'comfyhvac_setup' );
+add_action('after_setup_theme', 'comfyhvac_setup');
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -109,22 +111,24 @@ add_action( 'after_setup_theme', 'comfyhvac_setup' );
  *
  * @global int $content_width
  */
-function comfyhvac_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'comfyhvac_content_width', 640 );
+function comfyhvac_content_width()
+{
+	$GLOBALS['content_width'] = apply_filters('comfyhvac_content_width', 640);
 }
-add_action( 'after_setup_theme', 'comfyhvac_content_width', 0 );
+add_action('after_setup_theme', 'comfyhvac_content_width', 0);
 
 /**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function comfyhvac_widgets_init() {
+function comfyhvac_widgets_init()
+{
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'Sidebar', 'comfyhvac' ),
+			'name'          => esc_html__('Sidebar', 'comfyhvac'),
 			'id'            => 'sidebar-1',
-			'description'   => esc_html__( 'Add widgets here.', 'comfyhvac' ),
+			'description'   => esc_html__('Add widgets here.', 'comfyhvac'),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
@@ -134,9 +138,9 @@ function comfyhvac_widgets_init() {
 
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'Blog Sidebar', 'comfyhvac' ),
+			'name'          => esc_html__('Blog Sidebar', 'comfyhvac'),
 			'id'            => 'blog-sidebar',
-			'description'   => esc_html__( 'Add widgets for blog posts and pages here.', 'comfyhvac' ),
+			'description'   => esc_html__('Add widgets for blog posts and pages here.', 'comfyhvac'),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
@@ -144,17 +148,18 @@ function comfyhvac_widgets_init() {
 		)
 	);
 }
-add_action( 'widgets_init', 'comfyhvac_widgets_init' );
+add_action('widgets_init', 'comfyhvac_widgets_init');
 
 /**
  * Enqueue scripts and styles.
  */
-function comfyhvac_scripts() {
+function comfyhvac_scripts()
+{
 	// wp_enqueue_style( 'comfyhvac-style', get_stylesheet_uri(), array(), _S_VERSION );
 	// wp_style_add_data( 'comfyhvac-style', 'rtl', 'replace' );
-  	wp_enqueue_style('mobile-min', get_template_directory_uri() . '/assets/css/mobile.min.css', array(), _S_VERSION);
-  	wp_enqueue_style('responsive-min', get_template_directory_uri() . '/assets/css/responsive.min.css', array(), _S_VERSION);
-  	// wp_enqueue_style('home', get_template_directory_uri() . '/assets/css/home.css', array(), _S_VERSION);
+	wp_enqueue_style('mobile-min', get_template_directory_uri() . '/assets/css/mobile.min.css', array(), _S_VERSION);
+	wp_enqueue_style('responsive-min', get_template_directory_uri() . '/assets/css/responsive.min.css', array(), _S_VERSION);
+	// wp_enqueue_style('home', get_template_directory_uri() . '/assets/css/home.css', array(), _S_VERSION);
 
 
 	// wp_enqueue_script( 'jquery', 'https://code.jquery.com/jquery-3.6.0.min.js', array(), _S_VERSION, true );
@@ -164,7 +169,7 @@ function comfyhvac_scripts() {
 	// 	wp_enqueue_script( 'comment-reply' );
 	// }
 }
-add_action( 'wp_enqueue_scripts', 'comfyhvac_scripts' );
+add_action('wp_enqueue_scripts', 'comfyhvac_scripts');
 
 /**
  * Implement the Custom Header feature.
@@ -189,127 +194,212 @@ require get_template_directory() . '/inc/customizer.php';
 /**
  * Load Jetpack compatibility file.
  */
-if ( defined( 'JETPACK__VERSION' ) ) {
+if (defined('JETPACK__VERSION')) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
-	/**
-	 * Register theme options page.
-	 *
-	 * 
-	 */
-if( function_exists('acf_add_options_page') ) {
+/**
+ * Register theme options page.
+ *
+ * 
+ */
+if (function_exists('acf_add_options_page')) {
 
-    acf_add_options_page(array(
-        'page_title'  => 'Theme Options',
-        'menu_title'  => 'Theme Options',
-        'menu_slug'   => 'theme-options',
-        'capability'  => 'edit_posts',
-        'redirect'    => false
-    ));
-
+	acf_add_options_page(array(
+		'page_title'  => 'Theme Options',
+		'menu_title'  => 'Theme Options',
+		'menu_slug'   => 'theme-options',
+		'capability'  => 'edit_posts',
+		'redirect'    => false
+	));
 }
 
-function comfy_register_menus() {
-    register_nav_menus(array(
-        'primary_navigation' => __('Primary Navigation'),
-    ));
+function comfy_register_menus()
+{
+	register_nav_menus(array(
+		'primary_navigation' => __('Primary Navigation'),
+	));
 }
 add_action('init', 'comfy_register_menus');
 
 
 
-class Comfy_Nav_Walker extends Walker_Nav_Menu {
+class Comfy_Nav_Walker extends Walker_Nav_Menu
+{
 
-    function start_lvl(&$output, $depth = 0, $args = null) {
-        $output .= '<ul>';
-    }
+	function start_lvl(&$output, $depth = 0, $args = null)
+	{
+		$output .= '<ul>';
+	}
 
-    function end_lvl(&$output, $depth = 0, $args = null) {
-        $output .= '</ul>';
-    }
+	function end_lvl(&$output, $depth = 0, $args = null)
+	{
+		$output .= '</ul>';
+	}
 
-function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+	function start_el(&$output, $item, $depth = 0, $args = null, $id = 0)
+	{
 
-    $classes = empty($item->classes) ? array() : (array) $item->classes;
+		$classes = empty($item->classes) ? array() : (array) $item->classes;
 
-    $level = $depth + 1;
+		$level = $depth + 1;
 
-    // Detect children
-    $has_children = in_array('menu-item-has-children', $classes);
-    $contains = $has_children ? 'contains-1' : 'contains-0';
+		// Detect children
+		$has_children = in_array('menu-item-has-children', $classes);
+		$contains = $has_children ? 'contains-1' : 'contains-0';
 
-    // ✅ Add "current" class logic
-    $is_current = in_array('current-menu-item', $classes) 
-        || in_array('current-menu-parent', $classes) 
-        || in_array('current-menu-ancestor', $classes);
+		// ✅ Add "current" class logic
+		$is_current = in_array('current-menu-item', $classes)
+			|| in_array('current-menu-parent', $classes)
+			|| in_array('current-menu-ancestor', $classes);
 
-    $current_class = $is_current ? 'current' : '';
+		$current_class = $is_current ? 'current' : '';
 
-    $output .= '<li class="nav-level-' . $level . ' ' . esc_attr($contains . ' ' . $current_class) . '">';
+		$output .= '<li class="nav-level-' . $level . ' ' . esc_attr($contains . ' ' . $current_class) . '">';
 
-    $output .= '<a href="' . esc_url($item->url) . '" class="' . esc_attr($current_class) . '">
+		$output .= '<a href="' . esc_url($item->url) . '" class="' . esc_attr($current_class) . '">
                     <span>' . esc_html($item->title) . '</span>
                 </a>';
 
-    if ($has_children) {
-        $output .= '<div class="expand-nav"><span class="nav-expand"></span></div>';
-    }
-}
+		if ($has_children) {
+			$output .= '<div class="expand-nav"><span class="nav-expand"></span></div>';
+		}
+	}
 
-    function end_el(&$output, $item, $depth = 0, $args = null) {
-        $output .= '</li>';
-    }
-}
-
-
-function site_breadcrumbs() {
-    echo '<div id="breadcrumbs-container">';
-    echo '<span class="B_crumbBox">';
-
-    // Home
-    echo '<span class="B_firstCrumb"><a class="B_homeCrumb" href="' . home_url() . '">Home</a></span>';
-
-    if (is_category() || is_single()) {
-        echo ' / ';
-        the_category(' / ');
-
-        if (is_single()) {
-            echo ' / <span class="B_lastCrumb"><span class="B_currentCrumb">';
-            the_title();
-            echo '</span></span>';
-        }
-    }
-
-    elseif (is_page()) {
-        global $post;
-
-        if ($post->post_parent) {
-            $parent_id  = $post->post_parent;
-            $breadcrumbs = [];
-
-            while ($parent_id) {
-                $page = get_page($parent_id);
-                $breadcrumbs[] = '<a class="B_crumb" href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>';
-                $parent_id = $page->post_parent;
-            }
-
-            $breadcrumbs = array_reverse($breadcrumbs);
-
-            foreach ($breadcrumbs as $crumb) {
-                echo ' / ' . $crumb;
-            }
-        }
-
-        echo ' / <span class="B_lastCrumb"><span class="B_currentCrumb">';
-        echo get_the_title();
-        echo '</span></span>';
-    }
-
-    echo '</span>';
-    echo '</div>';
+	function end_el(&$output, $item, $depth = 0, $args = null)
+	{
+		$output .= '</li>';
+	}
 }
 
 
+function site_breadcrumbs()
+{
+	echo '<div id="breadcrumbs-container">';
+	echo '<span class="B_crumbBox">';
 
+	// Home
+	echo '<span class="B_firstCrumb"><a class="B_homeCrumb" href="' . home_url() . '">Home</a></span>';
+
+	if (is_category() || is_single()) {
+		echo ' / ';
+		the_category(' / ');
+
+		if (is_single()) {
+			echo ' / <span class="B_lastCrumb"><span class="B_currentCrumb">';
+			the_title();
+			echo '</span></span>';
+		}
+	} elseif (is_page()) {
+		global $post;
+
+		if ($post->post_parent) {
+			$parent_id  = $post->post_parent;
+			$breadcrumbs = [];
+
+			while ($parent_id) {
+				$page = get_page($parent_id);
+				$breadcrumbs[] = '<a class="B_crumb" href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>';
+				$parent_id = $page->post_parent;
+			}
+
+			$breadcrumbs = array_reverse($breadcrumbs);
+
+			foreach ($breadcrumbs as $crumb) {
+				echo ' / ' . $crumb;
+			}
+		}
+
+		echo ' / <span class="B_lastCrumb"><span class="B_currentCrumb">';
+		echo get_the_title();
+		echo '</span></span>';
+	}
+
+	echo '</span>';
+	echo '</div>';
+}
+
+
+add_theme_support('title-tag');
+
+
+
+
+// function import_posts_from_csv($file)
+// {
+// 	if (!file_exists($file)) return;
+
+// 	$handle = fopen($file, 'r');
+// 	$header = fgetcsv($handle); // skip header
+
+// 	while (($row = fgetcsv($handle)) !== false) {
+// 		$data = array_combine($header, $row);
+
+// 		$post_id = wp_insert_post([
+// 			'post_title'   => $data['title'],
+// 			'post_content' => $data['content'],
+// 			'post_status'  => 'publish',
+// 			'post_name'    => $data['slug'],
+// 			'post_date'    => $data['post_date'], // 👈 added
+// 			'post_date_gmt' => get_gmt_from_date($data['post_date']), // 👈 recommended
+// 		]);
+
+// 		if ($post_id) {
+// 			// Yoast SEO fields
+// 			update_post_meta($post_id, '_yoast_wpseo_title', $data['meta_title']);
+// 			update_post_meta($post_id, '_yoast_wpseo_metadesc', $data['meta_desc']);
+// 		}
+// 	}
+
+// 	fclose($handle);
+// }
+
+
+// function export_posts_to_csv() {
+//     $args = [
+//         'post_type' => 'post',
+//         'post_status' => 'publish',
+//         'posts_per_page' => -1,
+//     ];
+
+//     $posts = get_posts($args);
+
+//     header('Content-Type: text/csv');
+//     header('Content-Disposition: attachment;filename=posts.csv');
+
+//     $output = fopen('php://output', 'w');
+
+//     // CSV Header
+//     fputcsv($output, [
+//         'title',
+//         'content',
+//         'slug',
+//         'post_date',
+//         'meta_title',
+//         'meta_desc'
+//     ]);
+
+//     foreach ($posts as $post) {
+//         setup_postdata($post);
+
+//         fputcsv($output, [
+//             $post->post_title,
+//             $post->post_content,
+//             $post->post_name,
+//             $post->post_date,
+//             get_post_meta($post->ID, '_yoast_wpseo_title', true),
+//             get_post_meta($post->ID, '_yoast_wpseo_metadesc', true),
+//         ]);
+//     }
+
+//     fclose($output);
+//     exit;
+// }
+
+
+// add_action('init', function() {
+//     if (isset($_GET['export_posts'])) {
+//         export_posts_to_csv();
+//     }
+// });
 
 
