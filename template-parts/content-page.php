@@ -15,7 +15,7 @@
 		<?php
 		$title = get_field('page_title');
 		$breadcrumbs = get_field('breadcrumbs');
-		$business_phone_number = get_field('phone_number', 'option');
+		$business_phone_number = get_field('business_phone_number');
 
 		$short_description = get_field('short_description');
 		?>
@@ -26,9 +26,7 @@
 			<h1 id="content-title" class="h2"><?php the_title(); ?></h1>
 		<?php endif; ?>
 		<?php if ($business_phone_number) : ?>
-			<span id="content-phone-callout" class="h3">Give us a call today: <a href="tel:<?php echo esc_attr($business_phone_number); ?>"><?php echo esc_html($business_phone_number); ?></a></span>
-		<?php else : ?>
-			<span id="content-phone-callout" class="h3">Give us a call today: <a href="tel:877-772-6639">877-772-6639</a></span>
+			<span id="content-phone-callout" class="h3">Give us a call today: <a href="tel:<?php echo esc_attr(get_field('phone_number', 'option')); ?>"><?php echo esc_html(get_field('phone_number', 'option')); ?></a></span>
 		<?php endif; ?>
 
 		<?php if ($short_description) : ?>

@@ -322,84 +322,104 @@ function site_breadcrumbs()
 add_theme_support('title-tag');
 
 
+// Run once on theme activation to set permalink structure and flush rules.
+function comfyhvac_set_permalinks_on_activation() {
+    global $wp_rewrite;
+    // Set structure to /bloc/category/post
+    $wp_rewrite->set_permalink_structure( '/blog/%category%/%postname%/' );
+    flush_rewrite_rules();
+}
+add_action( 'after_switch_theme', 'comfyhvac_set_permalinks_on_activation' );
+
+/**
+ * Theme Functions
+ */
+
+/*----------------------------------------------
+# 1. REGISTER SERVICE AREA CPT
+----------------------------------------------*/
+function create_service_area_post_type() {
+
+    $labels = array(
+        'name'               => 'Service Areas',
+        'singular_name'      => 'Service Area',
+        'menu_name'          => 'Service Areas',
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'has_archive'        => true,
+        'rewrite'            => array(
+            'slug' => 'service-areas', // ✅ FIXED SLUG
+            'with_front' => false      // ✅ prevents /blog/ prefix
+        ),
+        'supports'           => array('title', 'editor', 'thumbnail'),
+        'taxonomies'         => array('category'),
+        'menu_icon'          => 'dashicons-location',
+        'show_in_rest'       => true,
+    );
+
+    register_post_type('service_area', $args);
+}
+add_action('init', 'create_service_area_post_type');
 
 
-// function import_posts_from_csv($file)
-// {
-// 	if (!file_exists($file)) return;
-
-// 	$handle = fopen($file, 'r');
-// 	$header = fgetcsv($handle); // skip header
-
-// 	while (($row = fgetcsv($handle)) !== false) {
-// 		$data = array_combine($header, $row);
-
-// 		$post_id = wp_insert_post([
-// 			'post_title'   => $data['title'],
-// 			'post_content' => $data['content'],
-// 			'post_status'  => 'publish',
-// 			'post_name'    => $data['slug'],
-// 			'post_date'    => $data['post_date'], // 👈 added
-// 			'post_date_gmt' => get_gmt_from_date($data['post_date']), // 👈 recommended
-// 		]);
-
-// 		if ($post_id) {
-// 			// Yoast SEO fields
-// 			update_post_meta($post_id, '_yoast_wpseo_title', $data['meta_title']);
-// 			update_post_meta($post_id, '_yoast_wpseo_metadesc', $data['meta_desc']);
-// 		}
-// 	}
-
-// 	fclose($handle);
-// }
+/*----------------------------------------------
+# 2. ENABLE CATEGORY FOR SERVICE AREA
+----------------------------------------------*/
+function add_categories_to_service_area() {
+    register_taxonomy_for_object_type('category', 'service_area');
+}
+add_action('init', 'add_categories_to_service_area');
 
 
-// function export_posts_to_csv() {
-//     $args = [
-//         'post_type' => 'post',
-//         'post_status' => 'publish',
-//         'posts_per_page' => -1,
-//     ];
-
-//     $posts = get_posts($args);
-
-//     header('Content-Type: text/csv');
-//     header('Content-Disposition: attachment;filename=posts.csv');
-
-//     $output = fopen('php://output', 'w');
-
-//     // CSV Header
-//     fputcsv($output, [
-//         'title',
-//         'content',
-//         'slug',
-//         'post_date',
-//         'meta_title',
-//         'meta_desc'
-//     ]);
-
-//     foreach ($posts as $post) {
-//         setup_postdata($post);
-
-//         fputcsv($output, [
-//             $post->post_title,
-//             $post->post_content,
-//             $post->post_name,
-//             $post->post_date,
-//             get_post_meta($post->ID, '_yoast_wpseo_title', true),
-//             get_post_meta($post->ID, '_yoast_wpseo_metadesc', true),
-//         ]);
-//     }
-
-//     fclose($output);
-//     exit;
-// }
+/*----------------------------------------------
+# 3. REWRITE RULE (/service-areas/{area}/{service}/)
+----------------------------------------------*/
+function service_area_service_rewrite_rule() {
+    add_rewrite_rule(
+        '^service-areas/([^/]+)/([^/]+)/?$',
+        'index.php?service_area=$matches[1]&service_cat=$matches[2]',
+        'top'
+    );
+}
+add_action('init', 'service_area_service_rewrite_rule');
 
 
-// add_action('init', function() {
-//     if (isset($_GET['export_posts'])) {
-//         export_posts_to_csv();
-//     }
-// });
+/*----------------------------------------------
+# 4. REGISTER QUERY VARS
+----------------------------------------------*/
+function add_custom_query_vars($vars) {
+    $vars[] = 'service_area';
+    $vars[] = 'service_cat';
+    return $vars;
+}
+add_filter('query_vars', 'add_custom_query_vars');
 
 
+/*----------------------------------------------
+# 5. LOAD CUSTOM TEMPLATE
+----------------------------------------------*/
+function load_area_service_template($template) {
+
+    if (get_query_var('service_area') && get_query_var('service_cat')) {
+
+        $custom_template = get_template_directory() . '/area-service-template.php';
+
+        if (file_exists($custom_template)) {
+            return $custom_template;
+        }
+    }
+
+    return $template;
+}
+add_filter('template_include', 'load_area_service_template');
+
+
+/*----------------------------------------------
+# 6. HELPER LINK FUNCTION
+----------------------------------------------*/
+function get_area_service_link($area_slug, $category_slug) {
+    return home_url('/service-areas/' . $area_slug . '/' . $category_slug . '/');
+}

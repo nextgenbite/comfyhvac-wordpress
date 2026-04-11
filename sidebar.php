@@ -120,66 +120,26 @@ if (! is_active_sidebar('sidebar-1')) {
 						</div>
 					</section><!-- mini-form -->
 				</div>
-				<section class="secondary-tools-outer" id="promotions-secondary">
-					<div class="width-limiter">
-						<div class="secondary-tools">
-							<h4 class="secondary-tools-heading">Stay Comfy and Save Money</h4>
-							<ul class="promotions">
-								<li>
-									<a class="modal-trigger" data-modal-id="promotion-popup" data-append-id="promotion-popup-59">
-										<div class="promo-image "></div>
-										<span class="promo-title">Free Estimates</span>
-										<span class="promo-teaser">on New Installations</span>
-										<span class="promo-view-details">View Details</span>
-									</a>
-									<div class="promotions-popup" id="promotion-popup-59" style="display:none;">
-										<div class="popup-inner">
-											<div class="promotions-popup-header">
-												<div class="popup-header-left">
-													<div class="promotion expanded">
-														<?php
-														$logo = get_field('site_logo', 'option');
-														if (!empty($logo)): ?>
-															<img class="promotion-logo" src="<?php echo esc_url($logo['url']); ?>" alt="<?php bloginfo('name'); ?>" />
-														<?php else: ?>
-															<img class="promotion-logo" src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="Comfy Heating &amp; Air Conditioning Inc." />
-														<?php endif; ?>
-														<h2><a href="/promotions/free-estimates">Free Estimates</a></h2>
 
-														<p>Free Estimates on New Installations</p>
-														<p class="disclaimer">Limit one coupon per customer. Offers cannot be combined with any other discounts, promotions, or coupons. Coupon must be presented at time of purchase and is valid for a single use only. No cash value. Other restrictions may apply.</p>
-														<p class="expiration"></p>
-													</div>
-													<h4>Call to Redeem</h4>
-													<div class="phone-button cta-button">
-														<?php $business_phone= get_field('phone_number', 'option');
-														if ($business_phone):
-															$clean_phone = preg_replace('/\D+/', '', $business_phone);
-															$tel_link = 'tel:' . $clean_phone;
-														else:
-															$tel_link = 'tel:8777726639';
-															$business_phone = '877-772-6639';
-														?>
-														<a href="tel:<?php echo str_replace(array('(', ')', ' ', '-'), '', $business_phone); ?>">
-															<?php echo $business_phone ? $business_phone : '877-772-6639'; ?>
-														</a>
-														<?php endif; ?>
-													</div>
-												</div>
-												<div class="popup-header-right">
-													<span class="close-popup">X</span>
-												</div>
-											</div>
-											<p class="view-all"><a href="/about/promotions?v=">View All Promotions</a></p>
-										</div>
-									</div>
-								</li>
-							</ul>
-
-							<p class="view-all"><a href="/about/promotions">View All Promotions</a></p>
+				<?php
+				$categories = get_the_category();
+				if (!empty($categories)):
+				?>
+					<section id="secondary-navigation-outer" class="secondary-tools-outer">
+						<div class="width-limiter">
+							<div class="secondary-tools">
+								<h4 class="secondary-tools-heading"><a href="<?php echo esc_url(home_url('/service-areas/' . get_post_field('post_name') . '/')); ?>"><?php the_title(); ?></a></h4>
+								<ul>
+									<?php
+									foreach ($categories as $cat) {
+										echo '<li><a href="' . esc_url(home_url('/service-areas/' . get_post_field('post_name') . '/' . $cat->slug . '/')) . '">' . esc_html(get_the_title() . ' ' . $cat->name) . '</a></li>';
+									}
+									?>
+								</ul>
+							</div>
 						</div>
-					</div>
-				</section>
+					</section>
+				<?php endif; ?>
 				<section class="secondary-tools-outer" id="testimonials-secondary">
 					<div class="width-limiter">
 						<div class="secondary-tools">
@@ -206,6 +166,26 @@ if (! is_active_sidebar('sidebar-1')) {
 						</div><!--secondary-tools-->
 					</div>
 				</section><!--secondary-tools-outer-->
+						<?php if (have_rows('zip_codes')) :
+							$total_rows = count(get_field('zip_codes'));
+							$i = 0;
+
+						?>
+							<section class="secondary-tools-outer" id="zips-secondary">
+								<div class="width-limiter">
+									<div class="secondary-tools">
+										<h4 class="secondary-tools-heading">We Serve The Following Zip Codes in <?php the_title(); ?>:</h4>
+										<p>
+
+											<?php while (have_rows('zip_codes')) : the_row(); ?>
+												<?php the_sub_field('zip_code'); ?>
+												<?php if (++$i !== $total_rows) echo ', '; ?>
+											<?php endwhile; ?>
+										</p>
+									</div>
+								</div>
+							</section>
+						<?php endif; ?>
 			</div>
 		</div>
 	</aside>

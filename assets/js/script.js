@@ -83,4 +83,27 @@ $(document).on('mouseleave', '.nav-level-1', function () {
     $(document).on('click', '.close-popup', function () {
         $(this).closest('#promotion-popup').hide();
     });
+
+$('#btn-print-coupon').on('click', function () { 
+    var couponContent = $('#main-content').html();
+
+    var printWindow = window.open('', '', 'height=600,width=800');
+
+    printWindow.document.write('<html><head><title>Print Coupon</title>');
+
+    // ✅ Copy all styles and links
+    $('link[rel="stylesheet"], style').each(function () {
+        printWindow.document.write($(this).prop('outerHTML'));
+    });
+
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(couponContent);
+    printWindow.document.write('</body></html>');
+
+    printWindow.document.close();
+
+    printWindow.onload = function() {
+        printWindow.print();
+    };
+});
 });
