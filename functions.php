@@ -332,91 +332,56 @@ add_theme_support('title-tag');
 
 
 // Run once on theme activation to set permalink structure and flush rules.
-function comfyhvac_set_permalinks_on_activation() {
-    global $wp_rewrite;
-    // Set structure to /bloc/category/post
-    $wp_rewrite->set_permalink_structure( '/blog/%category%/%postname%/' );
-    flush_rewrite_rules();
+function comfyhvac_set_permalinks_on_activation()
+{
+	global $wp_rewrite;
+	// Set structure to /bloc/category/post
+	$wp_rewrite->set_permalink_structure('/blog/%category%/%postname%/');
+	flush_rewrite_rules();
 }
-add_action( 'after_switch_theme', 'comfyhvac_set_permalinks_on_activation' );
+add_action('after_switch_theme', 'comfyhvac_set_permalinks_on_activation');
 
 
 
 /*----------------------------------------------
 # 1. REGISTER SERVICE AREA CPT
 ----------------------------------------------*/
-function create_service_area_post_type() {
+function create_service_area_post_type()
+{
 
-    $labels = array(
-        'name'               => 'Service Areas',
-        'singular_name'      => 'Service Area',
-        'menu_name'          => 'Service Areas',
-    );
+	$labels = array(
+		'name'               => 'Service Areas',
+		'singular_name'      => 'Service Area',
+		'menu_name'          => 'Service Areas',
+	);
 
-    $args = array(
-        'labels'             => $labels,
-        'public'             => true,
-        'has_archive'        => true,
-        'rewrite'            => array(
-            'slug' => 'service-areas', // ✅ FIXED SLUG
-            'with_front' => false      // ✅ prevents /blog/ prefix
-        ),
-        'supports'           => array('title', 'editor', 'thumbnail'),
-        'taxonomies'         => array('category'),
-        'menu_icon'          => 'dashicons-location',
-        'show_in_rest'       => true,
-    );
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'has_archive'        => true,
+		'rewrite'            => array(
+			'slug' => 'service-areas', // ✅ FIXED SLUG
+			'with_front' => false      // ✅ prevents /blog/ prefix
+		),
+		'supports'           => array('title', 'editor', 'thumbnail'),
+		'taxonomies'         => array('category'),
+		'menu_icon'          => 'dashicons-location',
+		'show_in_rest'       => true,
+	);
 
-    register_post_type('service_area', $args);
+	register_post_type('service_area', $args);
 }
 add_action('init', 'create_service_area_post_type');
 
-/*----------------------------------------------
-# 1.5 REGISTER PROMOTIONS CPT
-----------------------------------------------*/
-function create_promotions_post_type() {
 
-    $labels = array(
-        'name'               => 'Promotions',
-        'singular_name'      => 'Promotional Detail',
-        'menu_name'          => 'Promotions',
-        'name_admin_bar'     => 'Promotional Detail',
-        'add_new'            => 'Add New',
-        'add_new_item'       => 'Add New Promotional Detail',
-        'new_item'           => 'New Promotional Detail',
-        'edit_item'          => 'Edit Promotional Detail',
-        'view_item'          => 'View Promotional Detail',
-        'all_items'          => 'All Promotions',
-        'search_items'       => 'Search Promotions',
-        'not_found'          => 'No promotions found',
-        'not_found_in_trash' => 'No promotions found in Trash',
-    );
-
-    $args = array(
-        'labels'             => $labels,
-        'public'             => true,
-        'has_archive'        => false,
-        'rewrite'            => array(
-            'slug' => 'promotions',
-            'with_front' => false,
-        ),
-        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
-        'show_in_rest'       => true,
-        'menu_icon'          => 'dashicons-megaphone',
-        'publicly_queryable' => true,
-        'exclude_from_search'=> false,
-    );
-
-    register_post_type('promotions', $args);
-}
-add_action('init', 'create_promotions_post_type');
 
 
 /*----------------------------------------------
 # 2. ENABLE CATEGORY FOR SERVICE AREA
 ----------------------------------------------*/
-function add_categories_to_service_area() {
-    register_taxonomy_for_object_type('category', 'service_area');
+function add_categories_to_service_area()
+{
+	register_taxonomy_for_object_type('category', 'service_area');
 }
 add_action('init', 'add_categories_to_service_area');
 
@@ -424,9 +389,10 @@ add_action('init', 'add_categories_to_service_area');
 /*----------------------------------------------
 # 2.5 ADD CUSTOM REWRITE TAGS
 ----------------------------------------------*/
-function service_area_rewrite_tags() {
-    add_rewrite_tag('%service_area%', '([^/]+)');
-    add_rewrite_tag('%service_cat%', '([^/]+)');
+function service_area_rewrite_tags()
+{
+	add_rewrite_tag('%service_area%', '([^/]+)');
+	add_rewrite_tag('%service_cat%', '([^/]+)');
 }
 add_action('init', 'service_area_rewrite_tags', 5);
 
@@ -434,18 +400,19 @@ add_action('init', 'service_area_rewrite_tags', 5);
 /*----------------------------------------------
 # 3. REWRITE RULE (/service-areas/{area}/{service}/)
 ----------------------------------------------*/
-function service_area_service_rewrite_rule() {
-    add_rewrite_rule(
-        '^service-areas/([^/]+)/([^/]+)/?$',
-        'index.php?post_type=service_area&name=$matches[1]&service_area=$matches[1]&service_cat=$matches[2]',
-        'top'
-    );
+function service_area_service_rewrite_rule()
+{
+	add_rewrite_rule(
+		'^service-areas/([^/]+)/([^/]+)/?$',
+		'index.php?post_type=service_area&name=$matches[1]&service_area=$matches[1]&service_cat=$matches[2]',
+		'top'
+	);
 
-    add_rewrite_rule(
-        '^service-areas/([^/]+)/?$',
-        'index.php?post_type=service_area&name=$matches[1]&service_area=$matches[1]',
-        'top'
-    );
+	add_rewrite_rule(
+		'^service-areas/([^/]+)/?$',
+		'index.php?post_type=service_area&name=$matches[1]&service_area=$matches[1]',
+		'top'
+	);
 }
 add_action('init', 'service_area_service_rewrite_rule');
 
@@ -453,22 +420,23 @@ add_action('init', 'service_area_service_rewrite_rule');
 /*----------------------------------------------
 # 3.5 SERVICE AREA PERMALINKS
 ----------------------------------------------*/
-function service_area_post_type_link($post_link, $post) {
-    if ('service_area' !== $post->post_type || 'publish' !== $post->post_status) {
-        return $post_link;
-    }
+function service_area_post_type_link($post_link, $post)
+{
+	if ('service_area' !== $post->post_type || 'publish' !== $post->post_status) {
+		return $post_link;
+	}
 
-    $category_slug = '';
-    $terms = get_the_terms($post->ID, 'category');
-    if (!empty($terms) && !is_wp_error($terms)) {
-        $category_slug = sanitize_title($terms[0]->slug);
-    }
+	$category_slug = '';
+	$terms = get_the_terms($post->ID, 'category');
+	if (!empty($terms) && !is_wp_error($terms)) {
+		$category_slug = sanitize_title($terms[0]->slug);
+	}
 
-    if (!empty($category_slug)) {
-        return home_url('/service-areas/' . $post->post_name . '/' . $category_slug . '/');
-    }
+	if (!empty($category_slug)) {
+		return home_url('/service-areas/' . $post->post_name . '/' . $category_slug . '/');
+	}
 
-    return home_url('/service-areas/' . $post->post_name . '/');
+	return home_url('/service-areas/' . $post->post_name . '/');
 }
 add_filter('post_type_link', 'service_area_post_type_link', 10, 2);
 
@@ -476,10 +444,11 @@ add_filter('post_type_link', 'service_area_post_type_link', 10, 2);
 /*----------------------------------------------
 # 4. REGISTER QUERY VARS
 ----------------------------------------------*/
-function add_custom_query_vars($vars) {
-    $vars[] = 'service_area';
-    $vars[] = 'service_cat';
-    return $vars;
+function add_custom_query_vars($vars)
+{
+	$vars[] = 'service_area';
+	$vars[] = 'service_cat';
+	return $vars;
 }
 add_filter('query_vars', 'add_custom_query_vars');
 
@@ -487,18 +456,19 @@ add_filter('query_vars', 'add_custom_query_vars');
 /*----------------------------------------------
 # 5. LOAD CUSTOM TEMPLATE
 ----------------------------------------------*/
-function load_area_service_template($template) {
+function load_area_service_template($template)
+{
 
-    if (get_query_var('service_area')) {
+	if (get_query_var('service_area')) {
 
-        $custom_template = get_template_directory() . '/area-service-template.php';
+		$custom_template = get_template_directory() . '/area-service-template.php';
 
-        if (file_exists($custom_template)) {
-            return $custom_template;
-        }
-    }
+		if (file_exists($custom_template)) {
+			return $custom_template;
+		}
+	}
 
-    return $template;
+	return $template;
 }
 add_filter('template_include', 'load_area_service_template');
 
@@ -506,10 +476,11 @@ add_filter('template_include', 'load_area_service_template');
 /*----------------------------------------------
 # 6. HELPER LINK FUNCTION
 ----------------------------------------------*/
-function get_area_service_link($area_slug, $category_slug = '') {
-    if (!empty($category_slug)) {
-        return home_url('/service-areas/' . $area_slug . '/' . $category_slug . '/');
-    } else {
-        return home_url('/service-areas/' . $area_slug . '/');
-    }
+function get_area_service_link($area_slug, $category_slug = '')
+{
+	if (!empty($category_slug)) {
+		return home_url('/service-areas/' . $area_slug . '/' . $category_slug . '/');
+	} else {
+		return home_url('/service-areas/' . $area_slug . '/');
+	}
 }
