@@ -280,7 +280,12 @@ function site_breadcrumbs()
 	// Home
 	echo '<span class="B_firstCrumb"><a class="B_homeCrumb" href="' . home_url() . '">Home</a></span>';
 
-	if (is_category() || is_single()) {
+	if (is_singular('service_area')) {
+		echo ' / <a class="B_crumb" href="' . get_post_type_archive_link('service_area') . '">Service Areas</a>';
+		echo ' / <span class="B_lastCrumb"><span class="B_currentCrumb">';
+		the_title();
+		echo '</span></span>';
+	} elseif (is_category() || is_single()) {
 		echo ' / ';
 		the_category(' / ');
 
@@ -331,9 +336,7 @@ function comfyhvac_set_permalinks_on_activation() {
 }
 add_action( 'after_switch_theme', 'comfyhvac_set_permalinks_on_activation' );
 
-/**
- * Theme Functions
- */
+
 
 /*----------------------------------------------
 # 1. REGISTER SERVICE AREA CPT

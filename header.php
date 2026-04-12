@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?php wp_title('|', true, 'right');
           bloginfo('name'); ?></title>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Google Tag Manager -->
   <script>
     (function(w, d, s, l, i) {

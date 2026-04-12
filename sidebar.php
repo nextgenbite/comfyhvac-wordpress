@@ -132,7 +132,7 @@ if (! is_active_sidebar('sidebar-1')) {
 								<ul>
 									<?php
 									foreach ($categories as $cat) {
-										echo '<li><a href="' . esc_url(home_url('/service-areas/' . get_post_field('post_name') . '/' . $cat->slug . '/')) . '">' . esc_html(get_the_title() . ' ' . $cat->name) . '</a></li>';
+										echo '<li><a href="' . esc_url(home_url('/service-areas/' . get_post_field('post_name') . '/' . $cat->slug . '/')) . '">' . esc_html( $cat->name) . '</a></li>';
 									}
 									?>
 								</ul>

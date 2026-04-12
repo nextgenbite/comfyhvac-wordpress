@@ -1,9 +1,51 @@
 <?php
 
+/**
+ * Template Name: Service Area Archive
+ * @package comfyhvac
+ */
+
 get_header();
 ?>
+<style>
+    #service-calls-map {
+        height: 400px;
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+</style>
+<script>
+    (g => {
+        var h, a, k, p = "The Google Maps JavaScript API",
+            c = "google",
+            l = "importLibrary",
+            q = "__ib__",
+            m = document,
+            b = window;
+        b = b[c] || (b[c] = {});
+        var d = b.maps || (b.maps = {}),
+            r = new Set,
+            e = new URLSearchParams,
+            u = () => h || (h = new Promise(async (f, n) => {
+                await (a = m.createElement("script"));
+                e.set("libraries", [...r] + "");
+                for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
+                e.set("callback", c + ".maps." + q);
+                a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+                d[q] = f;
+                a.onerror = () => h = n(Error(p + " could not load."));
+                a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+                m.head.append(a)
+            }));
+        d[l] ? console.warn(p + " only loads once.") : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n))
+    })({
+        key: "AIzaSyAsPqrMCMXjjy4wWwUHQKAksx-smUYCKy4", // <-- REPLACE WITH YOUR KEY
+        v: "weekly"
+    });
+</script>
 
-<main id="main-container">
+<main id="main-container" class="exclude-sidebar">
 
     <div id="content" class="exclude-sidebar-content ">
         <section id="content-wrap">
@@ -17,24 +59,129 @@ get_header();
                             </div>
                             <h1>Service Areas</h1>
                             <!--No Phone-->
+                            <?php
 
-                            <div id="service-calls-map">
-                                <img src="https://maps.google.com/maps/api/staticmap?key=AIzaSyAsPqrMCMXjjy4wWwUHQKAksx-smUYCKy4&amp;center=37.718633,%20-122.103161&amp;zoom=9&amp;size=500x350&amp;maptype=roadmap&amp;sensor=false" width="500" height="350">
-                            </div>
+                            $zip = '';
+                            $service_area_results = array();
+                            $search_performed = false;
+
+                            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['is_postback'])) {
+                                $zip = sanitize_text_field($_POST['zip_code'] ?? '');
+                                $search_performed = true;
+                            }
+
+                            $service_area_ids = array();
+
+                            if (!empty($zip)) {
+                                global $wpdb;
+
+                                $meta_key_like = $wpdb->esc_like('zip_codes_') . '%_zip_code';
+                                $service_area_ids = $wpdb->get_col(
+                                    $wpdb->prepare(
+                                        "SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key LIKE %s AND meta_value = %s",
+                                        $meta_key_like,
+                                        $zip
+                                    )
+                                );
+                            }
+
+                            if ($search_performed && !empty($service_area_ids)) {
+                                $query = new WP_Query(array(
+                                    'post_type'      => 'service_area',
+                                    'post__in'       => $service_area_ids,
+                                    'posts_per_page' => -1,
+                                    'orderby'        => 'post_date',
+                                    'order'          => 'DESC',
+                                ));
+
+                                if ($query->have_posts()) {
+                                    while ($query->have_posts()) {
+                                        $query->the_post();
+                                        $service_area_results[] = array(
+                                            'title'     => get_the_title(),
+                                            'permalink' => get_permalink(),
+                                        );
+                                    }
+                                    wp_reset_postdata();
+                                }
+                            }
+                            ?>
+
+                            <?php if ($search_performed) : ?>
+                                <?php if (!empty($zip) && !empty($service_area_results)) : ?>
+                                    <div class="service-location found confirmation-container">
+                                        <p>Yes, we serve</p>
+                                        <ul class="service-location">
+                                            <?php foreach ($service_area_results as $result) : ?>
+                                                <li><a href="<?php echo esc_url($result['permalink']); ?>"><?php echo esc_html($result['title'] . ' ' . $zip); ?></a></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
+                                <?php elseif (!empty($zip)) : ?>
+                                    <div class="service-location confirmation-container">
+                                        <p>Sorry, we do not currently serve <?php echo esc_html($zip); ?>.</p>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+
+                            <div id="service-calls-map"></div>
+
                             <script type="text/javascript">
+                                var imsServiceCalls = {
+                                    init: async function(data) {
+                                        // Load the necessary libraries
+                                        const {
+                                            Map,
+                                            InfoWindow
+                                        } = await google.maps.importLibrary("maps");
+                                        const {
+                                            AdvancedMarkerElement,
+                                            PinElement
+                                        } = await google.maps.importLibrary("marker");
+
+                                        const map = new Map(document.getElementById("service-calls-map"), {
+                                            center: {
+                                                lat: 37.75,
+                                                lng: -122.15
+                                            },
+                                            zoom: 10,
+                                            mapId: "DEMO_MAP_ID",
+                                        });
+
+                                        const infoWindow = new InfoWindow();
+
+                                        data.forEach((location) => {
+                                            // 1. Create the PinElement
+                                            const pinStyle = new PinElement({
+                                                background: "#0078d4",
+                                                borderColor: "#005a9e",
+                                                glyphColor: "white",
+                                                scale: 1.1,
+                                            });
+
+                                            // 2. Place the Advanced Marker
+                                            // FIX: Pass 'pinStyle' directly to content, NOT 'pinStyle.element'
+                                            const marker = new AdvancedMarkerElement({
+                                                map: map,
+                                                position: {
+                                                    lat: parseFloat(location.lat),
+                                                    lng: parseFloat(location.lon)
+                                                },
+                                                title: location.description,
+                                                content: pinStyle,
+                                            });
+
+                                            // 3. FIX: Use 'gmp-click' instead of 'click'
+                                            marker.addListener("gmp-click", () => {
+                                                infoWindow.close();
+                                                infoWindow.setContent(`<div><strong>${location.city}</strong><br>${location.description}</div>`);
+                                                infoWindow.open(map, marker);
+                                            });
+                                        });
+                                    }
+                                };
                                 $(document).ready(function() {
-                                    serviceCallsMapContainer = $('#service-calls-map');
-                                    serviceCallsInitialZoom = 10;
-                                    serviceCallsInitialLat = 37.718633;
-                                    serviceCallsInitialLng = -122.103161;
-
-                                    //heatmap colors
-                                    serviceCallsGradient = ['rgba(0, 255, 255, 0)', 'rgba(0, 255, 255, 1)', 'rgba(0, 191, 255, 1)', 'rgba(0, 127, 255, 1)'];
-                                    serviceCallsRadius = 75; //The radius of influence for each data point, in pixels
-                                    serviceCallsIntensity = 1; //higher number less intense
-                                    serviceCallsOpacity = 0.5; //opacity of the heatmap - number between 0 and 1
-
-                                    imsServiceCalls.init([{
+                                    const myData = [{
                                         "service_call_id": "982",
                                         "description": "We serve Alameda, CA",
                                         "address": "",
@@ -850,19 +997,23 @@ get_header();
                                         "lon": "-122.073",
                                         "category_id": "1",
                                         "category_name": "Service Area"
-                                    }]);
+                                    }];
+
+                                    imsServiceCalls.init(myData);
                                 });
                             </script>
+
                             <section class="secondary-tools-outer" id="service-area-search">
                                 <div class="width-limiter">
                                     <div class="secondary-tools">
                                         <p>Do we serve your neighborhood?</p>
-                                        <form method="post" action="/service-areas" id="service-area-search-form">
+
+                                        <form method="post" action="<?php echo esc_url(home_url('/service-areas/')); ?>" id="service-area-search-form">
                                             <fieldset>
                                                 <ul>
                                                     <li class="zip-input">
                                                         <label class="hide" for="zip_code">ZIP Code</label>
-                                                        <input type="text" id="zip_code" name="zip_code" placeholder="Zip Code">
+                                                        <input type="text" id="zip_code" name="zip_code" placeholder="Zip Code" value="<?php echo esc_attr($zip); ?>">
                                                     </li>
                                                     <li class="submit">
                                                         <input type="submit" value="Search">
@@ -877,9 +1028,8 @@ get_header();
 
                         </div>
                     </div>
-
                     <div id="main-content" class="">
-                        <div class="content-spacer">
+                        <div class="content-spacer" id="service-areas">
                             <section class="secondary-tools-outer" id="service-area-towns-list">
                                 <div class="secondary-tools">
                                     <h2 class="service-towns">Serving the East Bay and Tri Valley Areas</h2>
@@ -924,37 +1074,5 @@ get_header();
 
     </div><!-- #content -->
 </main>
-
-<div id="promotion-popup" class="ims-lightbox" style="display: none;">
-    <div class="promotions-popup" id="promotion-popup-59">
-        <div class="popup-inner">
-            <div class="promotions-popup-header">
-                <div class="popup-header-left">
-                    <div class="promotion expanded">
-                        <?php $logo = get_field('site_logo', 'option');
-                        if (!empty($logo)): ?>
-                            <img src="<?php echo esc_url($logo['url']); ?>" alt="<?php bloginfo('name'); ?>" class="promotion-logo">
-                        <?php else: ?>
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="<?php bloginfo('name'); ?>" class="promotion-logo">
-                        <?php endif; ?>
-                        <h2><a href="/promotions/free-estimates">Free Estimates</a></h2>
-
-                        <p>Free Estimates on New Installations</p>
-                        <p class="disclaimer">Limit one coupon per customer. Offers cannot be combined with any other discounts, promotions, or coupons. Coupon must be presented at time of purchase and is valid for a single use only. No cash value. Other restrictions may apply.</p>
-                        <p class="expiration"></p>
-                    </div>
-                    <h4>Call to Redeem</h4>
-                    <div class="phone-button cta-button">
-                        <a href="tel:<?php echo get_field('phone_number', 'option'); ?>"><?php echo get_field('phone_number', 'option'); ?></a>
-                    </div>
-                </div>
-                <div class="popup-header-right">
-                    <span class="close-popup">X</span>
-                </div>
-            </div>
-            <p class="view-all"><a href="/about/promotions?v=">View All Promotions</a></p>
-        </div>
-    </div>
-</div>
 
 <?php get_footer(); ?>

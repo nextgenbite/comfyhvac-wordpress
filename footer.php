@@ -127,7 +127,7 @@
     </div> <!-- end ims-push-content -->
 
 </div><!-- #container-all -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/js/script.js"></script>
 <?php wp_footer(); ?>
 
