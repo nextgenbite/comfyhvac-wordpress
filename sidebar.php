@@ -121,25 +121,39 @@ if (! is_active_sidebar('sidebar-1')) {
 					</section><!-- mini-form -->
 				</div>
 
-				<?php
-				$categories = get_the_category();
-				if (!empty($categories)):
-				?>
-					<section id="secondary-navigation-outer" class="secondary-tools-outer">
-						<div class="width-limiter">
-							<div class="secondary-tools">
-								<h4 class="secondary-tools-heading"><a href="<?php echo esc_url(home_url('/service-areas/' . get_post_field('post_name') . '/')); ?>"><?php the_title(); ?></a></h4>
-								<ul>
-									<?php
-									foreach ($categories as $cat) {
-										echo '<li><a href="' . esc_url(home_url('/service-areas/' . get_post_field('post_name') . '/' . $cat->slug . '/')) . '">' . esc_html( $cat->name) . '</a></li>';
-									}
-									?>
-								</ul>
-							</div>
-						</div>
-					</section>
-				<?php endif; ?>
+<?php
+$current_page_id = get_the_ID();
+
+$services = get_children(array(
+    'post_parent' => $current_page_id,
+    'post_type'   => 'service_area',
+    'post_status' => 'publish',
+    'orderby'     => 'menu_order', 
+    'order'       => 'ASC'
+));
+
+if (!empty($services)):
+?>
+    <section id="secondary-navigation-outer" class="secondary-tools-outer">
+        <div class="width-limiter">
+            <div class="secondary-tools">
+                <h4 class="secondary-tools-heading">
+                    <a href="<?php echo get_permalink($current_page_id); ?>">
+                        <?php echo get_the_title($current_page_id); ?>
+                    </a>
+                </h4>
+                
+                <ul>
+                    <?php
+                    foreach ($services as $service) {
+                        echo '<li><a href="' . get_permalink($service->ID) . '">' . esc_html($service->post_title) . '</a></li>';
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+    </section>
+<?php endif; ?>
 				<section class="secondary-tools-outer" id="testimonials-secondary">
 					<div class="width-limiter">
 						<div class="secondary-tools">
