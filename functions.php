@@ -357,10 +357,10 @@ function create_service_area_post_type() {
         'labels'             => $labels,
         'public'             => true,
         'has_archive'        => 'service-areas', 
-        'hierarchical'       => true, // ✅ মাস্ট: এটি থাকলে আপনি Parent-Child সেট করতে পারবেন
+        'hierarchical'       => true, 
         'show_in_rest'       => true,
         'menu_icon'          => 'dashicons-location',
-        'supports'           => array('title', 'editor', 'thumbnail', 'page-attributes'), // ✅ মাস্ট: 'page-attributes' থাকতে হবে
+        'supports'           => array('title', 'editor', 'thumbnail', 'page-attributes'),
         'rewrite'            => array(
             'slug'         => 'service-areas',
             'hierarchical' => true,
