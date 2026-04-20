@@ -21,9 +21,9 @@
 		?>
 		<?php $breadcrumbs ? site_breadcrumbs() : null; ?>
 		<?php if ($title) : ?>
-			<h1 id="content-title" class="h2"><?php echo esc_html($title); ?></h1>
+			<h1 id="content-title"><?php echo esc_html($title); ?></h1>
 		<?php else : ?>
-			<h1 id="content-title" class="h2"><?php the_title(); ?></h1>
+			<h1 id="content-title"><?php the_title(); ?></h1>
 		<?php endif; ?>
 		<?php if ($business_phone_number) : ?>
 			<span id="content-phone-callout" class="h3">Give us a call today: <a href="tel:<?php echo esc_attr(get_field('phone_number', 'option')); ?>"><?php echo esc_html(get_field('phone_number', 'option')); ?></a></span>

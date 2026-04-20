@@ -75,13 +75,19 @@ $(document).on('mouseleave', '.nav-level-1', function () {
     //promotion modal
     $(document).on('click', '.modal-trigger', function (e) {
         e.preventDefault();
-        var modalId = $(this).data('modal-id');
-        $('#' + modalId).show();
+        var appendId = $(this).data('append-id'); // e.g. promotion-popup-39
+
+
+
+        // Show the correct one
+        $('#' + appendId).fadeIn(200);
+
+       
     });
 
-    // Close popup
+    // Close modal
     $(document).on('click', '.close-popup', function () {
-        $(this).closest('#promotion-popup').hide();
+        $(this).closest('.ims-lightbox').hide();
     });
 
 $('#btn-print-coupon').on('click', function () { 

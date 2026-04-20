@@ -72,48 +72,7 @@ if (! is_active_sidebar('sidebar-1')) {
 										<ul class="submit">
 											<li><button type="submit" class="action-button">Send</button></li>
 										</ul>
-										<script>
-											imsUtil.registerFormValidationSettings("#ims-form-module-form-10", {
-												"rules": {
-													"data[FormResponse-10][1]": {
-														"required": true
-													},
-													"data[FormResponse-10][2]": {
-														"required": true
-													},
-													"data[FormResponse-10][4]": {
-														"required": true
-													},
-													"data[FormResponse-10][3]": {
-														"required": true
-													}
-												},
-												"messages": {
-													"data[FormResponse-10][1]": {
-														"required": "Please enter your first name"
-													},
-													"data[FormResponse-10][2]": {
-														"required": "Please enter your last name"
-													},
-													"data[FormResponse-10][4]": {
-														"required": "Please enter your phone number"
-													},
-													"data[FormResponse-10][3]": {
-														"required": "Please enter an email address"
-													},
-													"data[FormResponse-10][10]": {
-														"required": "Please enter your zip code"
-													},
-													"data[FormResponse-10][67]": {
-														"required": "Please let us know what kind of service you need"
-													},
-													"data[FormResponse-10][68]": {
-														"required": "Please let us know what kind of service you need"
-													},
-													"data[FormResponse-10][6][]": "Please enter a response for "
-												}
-											});
-										</script>
+									
 									</fieldset>
 								</form>
 							</div><!-- secondary-tools -->
@@ -121,39 +80,71 @@ if (! is_active_sidebar('sidebar-1')) {
 					</section><!-- mini-form -->
 				</div>
 
-<?php
-$current_page_id = get_the_ID();
+				<?php
+				$current_id = get_the_ID();
+				$parent_id  = wp_get_post_parent_id($current_id);
+				$ancestors  = get_post_ancestors($current_id);
 
-$services = get_children(array(
-    'post_parent' => $current_page_id,
-    'post_type'   => 'service_area',
-    'post_status' => 'publish',
-    'orderby'     => 'menu_order', 
-    'order'       => 'ASC'
-));
 
-if (!empty($services)):
-?>
-    <section id="secondary-navigation-outer" class="secondary-tools-outer">
-        <div class="width-limiter">
-            <div class="secondary-tools">
-                <h4 class="secondary-tools-heading">
-                    <a href="<?php echo get_permalink($current_page_id); ?>">
-                        <?php echo get_the_title($current_page_id); ?>
-                    </a>
-                </h4>
-                
-                <ul>
-                    <?php
-                    foreach ($services as $service) {
-                        echo '<li><a href="' . get_permalink($service->ID) . '">' . esc_html($service->post_title) . '</a></li>';
-                    }
-                    ?>
-                </ul>
-            </div>
-        </div>
-    </section>
-<?php endif; ?>
+				$zone_id = (count($ancestors) == 2) ? $parent_id : $current_id;
+				$services = get_children(array(
+					'post_parent' => $zone_id,
+					'post_type'   => 'service_area',
+					'post_status' => 'publish',
+					'orderby'     => 'menu_order',
+					'order'       => 'ASC'
+				));
+
+				if (!empty($services)):
+				?>
+					<section id="secondary-navigation-outer" class="secondary-tools-outer">
+						<div class="width-limiter">
+							<div class="secondary-tools">
+								<h4 class="secondary-tools-heading">
+									<a href="<?php echo get_permalink($zone_id); ?>">
+										<?php echo get_the_title($zone_id); ?>
+									</a>
+								</h4>
+								<ul>
+									<?php
+									foreach ($services as $service) {
+										if (($current_id === $service->ID)) {
+											echo '<li class="current">';
+											echo '<strong>' . esc_html($service->post_title) . '</strong>';
+											echo '</li>';
+										} else {
+
+											echo '<li>';
+											echo '<a href="' . get_permalink($service->ID) . '">' . esc_html($service->post_title) . '</a>';
+											echo '</li>';
+										}
+									}
+									?>
+								</ul>
+							</div>
+						</div>
+					</section>
+				<?php endif; ?>
+								<section class="secondary-tools-outer" id="promotions-secondary">
+					<div class="width-limiter">
+						<div class="secondary-tools">
+							<h4 class="secondary-tools-heading">Stay Comfy and Save Money</h4>
+							<ul class="promotions">
+								<li>
+									<a class="modal-trigger" data-modal-id="promotion-popup" data-append-id="promotion-popup-59">
+										<div class="promo-image "></div>
+										<span class="promo-title">Free Estimates</span>
+										<span class="promo-teaser">on New Installations</span>
+										<span class="promo-view-details">View Details</span>
+									</a>
+								
+								</li>
+							</ul>
+
+							<p class="view-all"><a href="/about/promotions">View All Promotions</a></p>
+						</div>
+					</div>
+				</section>
 				<section class="secondary-tools-outer" id="testimonials-secondary">
 					<div class="width-limiter">
 						<div class="secondary-tools">
@@ -180,26 +171,26 @@ if (!empty($services)):
 						</div><!--secondary-tools-->
 					</div>
 				</section><!--secondary-tools-outer-->
-						<?php if (have_rows('zip_codes')) :
-							$total_rows = count(get_field('zip_codes'));
-							$i = 0;
+				<?php if (have_rows('zip_codes')) :
+					$total_rows = count(get_field('zip_codes'));
+					$i = 0;
 
-						?>
-							<section class="secondary-tools-outer" id="zips-secondary">
-								<div class="width-limiter">
-									<div class="secondary-tools">
-										<h4 class="secondary-tools-heading">We Serve The Following Zip Codes in <?php the_title(); ?>:</h4>
-										<p>
+				?>
+					<section class="secondary-tools-outer" id="zips-secondary">
+						<div class="width-limiter">
+							<div class="secondary-tools">
+								<h4 class="secondary-tools-heading">We Serve The Following Zip Codes in <?php the_title(); ?>:</h4>
+								<p>
 
-											<?php while (have_rows('zip_codes')) : the_row(); ?>
-												<?php the_sub_field('zip_code'); ?>
-												<?php if (++$i !== $total_rows) echo ', '; ?>
-											<?php endwhile; ?>
-										</p>
-									</div>
-								</div>
-							</section>
-						<?php endif; ?>
+									<?php while (have_rows('zip_codes')) : the_row(); ?>
+										<?php the_sub_field('zip_code'); ?>
+										<?php if (++$i !== $total_rows) echo ', '; ?>
+									<?php endwhile; ?>
+								</p>
+							</div>
+						</div>
+					</section>
+				<?php endif; ?>
 			</div>
 		</div>
 	</aside>

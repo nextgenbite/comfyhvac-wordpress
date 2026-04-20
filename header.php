@@ -9,7 +9,7 @@
  */
 ?>
 <!doctype html>
-<html <?php language_attributes(); ?> class="js no-touchevents">
+<html <?php language_attributes(); ?> class="js touchevents webp">
 
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
@@ -48,6 +48,38 @@
   <script async src="https://online-booking.housecallpro.com/script.js?token=b5209c6dabc141c1998e8a55bb624c81&orgName=Comfy-Heating--Air-Conditioning-Inc"> </script>
   <script id="housecall-pro-chat-bubble" src="https://chat.housecallpro.com/proChat.js" type="text/javascript" data-color="#be290e" data-organization="f464ba25-9d4b-4c56-aba8-a989a401e0e3" defer></script>
   <!-- end chat plugin -->
+
+  <div id="promotion-popup-59" style="display: none;" class="ims-lightbox">
+    <div class="promotions-popup" style="display: block;">
+     	<div class="popup-inner">
+			<div class="promotions-popup-header">
+				<div class="popup-header-left">
+					<div class="promotion expanded">
+						<?php $logo= get_field('site_logo', 'option');
+						if(!empty($logo)): ?>
+							<img src="<?php echo esc_url($logo['url']); ?>" alt="<?php bloginfo('name'); ?>" class="promotion-logo">
+						<?php else: ?>
+							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="<?php bloginfo('name'); ?>" class="promotion-logo">
+						<?php endif; ?>
+						<h2><a href="/promotions/free-estimates">Free Estimates</a></h2>
+
+						<p>Free Estimates on New Installations</p>
+						<p class="disclaimer">Limit one coupon per customer. Offers cannot be combined with any other discounts, promotions, or coupons. Coupon must be presented at time of purchase and is valid for a single use only. No cash value. Other restrictions may apply.</p>
+						<p class="expiration"></p>
+					</div>
+					<h4>Call to Redeem</h4>
+					<div class="phone-button cta-button">
+						<a href="tel:<?php echo get_field('phone_number', 'option'); ?>"><?php echo get_field('phone_number', 'option'); ?></a>
+					</div>
+				</div>
+				<div class="popup-header-right">
+					<span class="close-popup">X</span>
+				</div>
+			</div>
+			<p class="view-all"><a href="/about/promotions?">View All Promotions</a></p>
+		</div>
+    </div>
+</div>
   <div id="container-all">
     <link itemprop="image" href="/assets/images/share-image.jpg">
     <header id="header">
