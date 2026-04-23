@@ -112,4 +112,19 @@ $('#btn-print-coupon').on('click', function () {
         printWindow.print();
     };
 });
+
+
+$('a').attr('href', function(index, value) {
+  // If href is empty/undefined, return it as is
+  if (!value) return value;
+
+
+  const ignorePattern = /^(\/|https?:\/\/|#|mailto:|tel:)/i;
+
+  if (!ignorePattern.test(value)) {
+    return '/' + value;
+  }
+
+  return value; // Return original if it matches the ignore pattern
+});
 });

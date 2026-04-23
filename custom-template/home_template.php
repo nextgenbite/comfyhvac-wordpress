@@ -400,55 +400,6 @@ get_header();
         </div>
     </div>
 </div>
-<div id="miniform-content" style="display: none;" class="ims-lightbox">
-    <div class="popup-inner">
-        <a class="close-popup" aria-label="Close">X</a>
-        <div style="display: block;">
-            <section id="mini-form" class="secondary-tools-outer">
-                <div class="width-limiter">
-                    <div class="secondary-tools">
-                        <h4 class="secondary-tools-heading mf-title">The First Step Towards Staying Comfy</h4>
-                        <p class="mf-subtitle">Fill Out The Form Below:</p>
 
-
-                        <form action="/contact/get-a-call-back" id="ims-form-module-form-10" enctype="multipart/form-data" class="horizontal" method="post">
-                            <fieldset>
-                                <ul>
-                                    <li id="item-li-1" class=" required"><label for="list-response-form-10-item-1" class="label-heading">First Name <em>*</em></label> <input name="data[FormResponse-10][1]" id="list-response-form-10-item-1" value="" type="text"></li>
-                                    <li id="item-li-2" class=" required"><label for="list-response-form-10-item-2" class="label-heading">Last Name <em>*</em></label> <input name="data[FormResponse-10][2]" id="list-response-form-10-item-2" value="" type="text"></li>
-                                    <li id="item-li-4" class=" required"><label for="list-response-form-10-item-4" class="label-heading">Phone Number <em>*</em></label> <input name="data[FormResponse-10][4]" id="list-response-form-10-item-4" value="" type="text"></li>
-                                    <li id="item-li-10-3" class=" required"><label for="list-response-form-10-item-3" class="label-heading">Email <em>*</em></label> <input name="data[FormResponse-10][3]" id="list-response-form-10-item-3" value="" type="text"></li>
-                                    <li id="item-li-10" class=" required"><label for="list-response-form-10-item-10" class="label-heading">Zip</label> <input name="data[FormResponse-10][10]" id="list-response-form-10-item-10" value="" type="text"></li>
-                                    <li id="item-li-67" class=" required"><label for="list-response-form-10-item-67">What kind of service do you need?</label> <select name="data[FormResponse-10][67]" id="list-response-form-10-item-67">
-                                            <option value="" selected="selected">(select one)</option>
-                                            <option value="1">Air Conditioning</option>
-                                            <option value="9">Generators</option>
-                                            <option value="2">Heating</option>
-                                            <option value="3">Indoor Air Quality</option>
-                                            <option value="10">Water Heaters</option>
-                                        </select></li>
-                                    <li id="item-li-68" class="radio required">
-                                        <p class="label-heading"></p><span class="wrapper"><label for="dataformresponse1068_looking_for_a_new_system_or_replacement"><input type="radio" name="data[FormResponse-10][68]" id="dataformresponse1068_looking_for_a_new_system_or_replacement" value="2"> <span>Looking for a new system or replacement</span></label><label for="dataformresponse1068_in_need_of_repairs"><input type="radio" name="data[FormResponse-10][68]" id="dataformresponse1068_in_need_of_repairs" value="3"> <span>In need of repairs</span></label><label for="dataformresponse1068_interested_in_maintenance"><input type="radio" name="data[FormResponse-10][68]" id="dataformresponse1068_interested_in_maintenance" value="4"> <span>Interested in maintenance</span></label></span>
-                                    </li>
-                                    <li id="item-li-6" class="checkbox required">
-                                        <p class="label-heading"></p><span class="wrapper"><label for="dataformresponse106_169e47b3228e29"><input type="checkbox" name="data[FormResponse-10][6][]" id="dataformresponse106_169e47b3228e29" value="1"> <span>Yes! Sign me up for the Comfy Heating &amp; Air Conditioning Inc. email list</span></label></span>
-                                    </li>
-                                </ul>
-                            </fieldset>
-                            <fieldset>
-                                <ul>
-                                    <li class="structured_particle_required company_name_required required"><label for="structured_particle_required_10">Structured Particle <em>*</em></label> <input name="structured_particle_required" id="structured_particle_required_10" value="" class="no-autopopulate" tabindex="-1" style="display: none;" type="text"></li>
-                                </ul> <input name="current_url" id="current_url-10" value="/" type="hidden"> <input name="page_info" id="page_info-10" value="a:3:{s:2:&quot;id&quot;;s:1:&quot;1&quot;;s:4:&quot;name&quot;;s:77:&quot;Comfy Heating &amp;amp; Air Conditioning Inc. | HVAC Contractors in San Ramon, CA&quot;;s:9:&quot;page_type&quot;;s:9:&quot;Home Page&quot;;}" type="hidden">
-                                <ul class="submit">
-                                    <li><button type="submit" class="action-button">Send</button></li>
-                                </ul>
-                            </fieldset>
-                        </form>
-                    </div><!-- secondary-tools -->
-                </div>
-            </section><!-- mini-form -->
-        </div>
-    </div>
-</div>
 
 <?php get_footer(); ?>
